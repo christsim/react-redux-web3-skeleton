@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getWeb3Action } from "../actions/web3Actions";
-import Web3Component from "./Web3Component";
+import Web3Provider from "./Web3Provider";
+import Web3DetailsExample from "./Web3DetailsExample";
 import store from "../store";
 
 @connect(
@@ -17,6 +18,8 @@ export default class Layout extends React.Component {
         store.dispatch(getWeb3Action());
     }
     render() {
-        return (<Web3Component/>);
+        return (<Web3Provider>
+                <Web3DetailsExample/>
+            </Web3Provider>);
     }
 }

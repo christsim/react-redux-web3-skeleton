@@ -1,39 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { 
-    getWeb3Action, 
-    getWeb3AccountDetailsAction,
-    getWeb3NetworkDetailsAction,
-} from "../actions/web3Actions";
 import store from "../store";
 import { notifyBlockNumberChanged, notifyAccountChanged } from "../util/web3Util";
 
-@connect(
-    //map to props
-    (store) => {
-        return {
-            web3: store.web3Reducer.web3,
-            networkDetails: store.web3Reducer.networkDetails,
-            accountDetails: store.web3Reducer.accountDetails,
-        }
-    }
-)
-export default class Web3Component extends React.Component {
-
-    componentWillMount() {
-        store.dispatch(getWeb3Action())
-            .then(web3Action => web3Action.action.payload)
-            .then(web3 => {
-                store.dispatch(getWeb3NetworkDetailsAction(web3));
-
-                notifyAccountChanged(web3, (accounts => {
-                    store.dispatch(getWeb3AccountDetailsAction(web3));
-                }));
-                notifyBlockNumberChanged(web3, (blockNumber => {
-                    store.dispatch(getWeb3NetworkDetailsAction(web3));
-                }));
-            });
-    }
+export default class Web3DetailsExample extends React.Component {
 
     render() {
         var body = (this.props.web3.loading) ? 

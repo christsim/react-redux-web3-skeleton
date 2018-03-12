@@ -31,7 +31,8 @@ export function notifyAccountChanged(web3, accountUpdatedFunction) {
     var curAccounts = [];
     var accountInterval = setInterval(function () {
         web3.eth.getAccounts().then(accounts => {
-            if(!accounts.every(a => curAccounts.includes(a))) {
+            if(accounts.length != curAccounts.length || 
+                !accounts.every(a => curAccounts.includes(a))) {
                 accountUpdatedFunction(accounts);
             }
             curAccounts = accounts;
