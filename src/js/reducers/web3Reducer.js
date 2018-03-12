@@ -1,41 +1,33 @@
 
 const initialState = {
     web3: null,
-    blockNumber: null,
-    account: null,
-    balance: null
+    networkDetails: null,
+    accountDetails: null,
 };
 
 // dont mutate state!!
 export default function reducer(state = initialState, action) {
     switch(action.type) {
         case "GET_WEB3_PENDING":
-            return {...state, loading: true, error:null};
+            return {...state, web3: { loading: true } };
         case "GET_WEB3_FULFILLED":
-            return {...state, loading: false, web3: action.payload, error:null};
+            return {...state, web3: { ...action.payload, loading: false, error: null}};
         case "GET_WEB3_REJECTED":
-            return {...state, loading: false, error: action.payload, error:null};
+            return {...state, web3: { loading: false, error: action.payload.toString() }};
 
-        case "GET_WEB3_BLOCKNUMBER_PENDING":
-            return {...state, error:null };
-        case "GET_WEB3_BLOCKNUMBER_FULFILLED":
-            return {...state, blockNumber: action.payload, error:null};
-        case "GET_WEB3_BLOCKNUMBER_REJECTED":
-            return {...state, blockNumber: null, error: action.payload};
+        case "GET_WEB3_NETWORK_DETAILS_PENDING":
+            return {...state, networkDetails: { loading: true } };
+        case "GET_WEB3_NETWORK_DETAILS_FULFILLED":
+            return {...state, networkDetails: { ...action.payload, loading: false, error: null}};
+        case "GET_WEB3_NETWORK_DETAILS_REJECTED":
+            return {...state, networkDetails: { loading: false, error: action.payload.toString()}};
 
-        case "GET_WEB3_ACCOUNT_PENDING":
-            return {...state, account: null, error:null};
-        case "GET_WEB3_ACCOUNT_FULFILLED":
-            return {...state, account: action.payload, error:null};
-        case "GET_WEB3_ACCOUNT_REJECTED":
-            return {...state, account: null, error: action.payload};
-            
-        case "GET_WEB3_ACCOUNT_BALANCE_PENDING":
-            return {...state, balance: null, error:null};
-        case "GET_WEB3_ACCOUNT_BALANCE_FULFILLED":
-            return {...state, balance: action.payload, error:null};
-        case "GET_WEB3_ACCOUNT_BALANCE_REJECTED":
-            return {...state, balance: null, error: action.payload};
+        case "GET_WEB3_ACCOUNT_DETAILS_PENDING":
+            return {...state, accountDetails: { loading: true } };
+        case "GET_WEB3_ACCOUNT_DETAILS_FULFILLED":
+            return {...state, accountDetails: { ...action.payload, loading: false, error: null}};
+        case "GET_WEB3_ACCOUNT_DETAILS_REJECTED":
+            return {...state, accountDetails: { loading: false, error: action.payload.toString()}};
 
         default:
             return state;

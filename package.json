@@ -27,7 +27,8 @@
     "webpack-dev-server": "^1.16.5"
   },
   "devDependencies": {
-    "json-loader": "^0.5.7"
+    "json-loader": "^0.5.7",
+    "redux-devtools-extension": "^2.13.2"
   },
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot",
