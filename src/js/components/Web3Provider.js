@@ -36,11 +36,19 @@ export default class Web3Provider extends React.Component {
     }
 
     render() {
-        const { children } = this.props;
+        if(
+            (this.props.web3 && !this.props.web3.loading) &&
+            (this.props.networkDetails && !this.props.networkDetails.loading) &&
+            (this.props.accountDetails && !this.props.accountDetails.loading)
+        ) {
+            const { children } = this.props;
     
-        var childrenWithProps = React.Children.map(children, child =>
-            React.cloneElement(child, { ...this.props }));
-    
-        return <div>{childrenWithProps}</div>
+            var childrenWithProps = React.Children.map(children, child =>
+                React.cloneElement(child, { ...this.props }));
+        
+            return <div>{childrenWithProps}</div>
+        } else {
+            return <div>Loading...</div>
+        }
     } 
 }

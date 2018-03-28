@@ -8,7 +8,7 @@ export function getWeb3() {
         window.addEventListener('load', function (dispatch) {
             try {
                 // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-                if (typeof web3 !== 'undefined') {
+                if (typeof window.web3 !== 'undefined') {
                     // Use Mist/MetaMask's provider.
                     let web3Injected = new Web3(web3.currentProvider);
                     console.log('Injected web3 detected.');
@@ -65,6 +65,7 @@ export function getNetworkDetails(web3) {
                 .then(protocolVersion => { return { protocolVersion: protocolVersion }}),
             web3.eth.isSyncing()
                 .then(isSyncing => { return { isSyncing: isSyncing }}),
+            Promise.resolve( { providerConnected: web3.currentProvider.isConnected() })
         ]
     )
     .then(details => { 
@@ -82,7 +83,7 @@ export function getAccountDetails(web3) {
                 .map(account => web3.eth.getBalance(account)
                 .then(balance => { 
                     return { 
-                        account: account, 
+                        account: account.toLowerCase(), 
                         balance: web3.utils.fromWei(balance, 'ether') 
                     }
                 }) 

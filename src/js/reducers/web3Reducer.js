@@ -2,7 +2,7 @@
 const initialState = {
     web3: null,
     networkDetails: null,
-    accountDetails: null,
+    accountDetails: {},
 };
 
 // dont mutate state!!
